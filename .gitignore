@@ -1,0 +1,35 @@
+# Files
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.pid
+hs_err_pid*
+.DS_Store
+
+# Dirs
+bin
+build
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/project/
+project/target/
+target/
+
+# IDE specific
+.scala_dependencies
+.worksheet
+.classpath
+.project
+.settings
+.idea/
+.idea_modules/
