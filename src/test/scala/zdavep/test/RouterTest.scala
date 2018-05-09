@@ -20,7 +20,7 @@ final class RouterTest extends TestKit(ActorSystem("test"))
 
   "A car router" must {
     "Construct a gray car" in {
-      router ! RouterRequest(Seq(PaintGray), Car())
+      router ! RouterRequest(Seq(PaintGray, IgnoreMe, PaintGray), Car())
       expectMsg(Car(color = "gray"))
     }
     "Construct a car with navigation and leave other fields unchanged" in {

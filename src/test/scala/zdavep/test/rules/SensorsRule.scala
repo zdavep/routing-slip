@@ -5,9 +5,8 @@ import zdavep.Rule
 import zdavep.test.domain.Car
 
 final class SensorsRule extends Rule[Car] {
-  def process(car: Car): Future[Car] = Future.successful {
-    if (car.sensors) car else car.copy(sensors = true)
-  }
+  override def shouldProcess(car: Car): Boolean = !car.sensors
+  def process(car: Car): Future[Car] = Future.successful(car.copy(sensors = true))
 }
 
 object SensorsRule {
