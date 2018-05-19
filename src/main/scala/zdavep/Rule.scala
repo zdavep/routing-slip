@@ -20,7 +20,7 @@ trait Rule[A <: AnyRef] extends Actor with ActorLogging with Routing {
   /**
    * Determines whether a rule needs to process the given payload.
    */
-  def shouldqProcess(payload: A): Future[Boolean] = Future.successful(true)
+  def shouldProcess(payload: A): Future[Boolean] = Future.successful(true)
 
   /**
    * Receive and process a message then route to the next rule.
