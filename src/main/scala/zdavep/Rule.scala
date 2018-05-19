@@ -20,18 +20,22 @@ trait Rule[A <: AnyRef] extends Actor with ActorLogging with Routing {
   /**
    * Determines whether a rule needs to process the given payload.
    */
-  def shouldProcess(payload: A): Boolean = true
+  def shouldqProcess(payload: A): Future[Boolean] = Future.successful(true)
 
   /**
    * Receive and process a message then route to the next rule.
    */
   def receive: Receive = {
     case RoutingSlip(rules: Seq[ActorRef], payload: A) ⇒
-      if (!shouldProcess(payload)) route(rules, payload) else process(payload).onComplete {
-        case Success(processed) ⇒ route(rules, processed)
-        case Failure(t) ⇒
-          log.error("Rule processing failed: {}", t)
-          route(rules, payload)
+      shouldProcess(payload).map { proceed ⇒
+        if (proceed) {
+          process(payload).onComplete {
+            case Success(processed) ⇒ route(rules, processed)
+            case Failure(t) ⇒
+              log.error("Rule processing failed: {}", t)
+              route(rules, payload)
+          }
+        } else route(rules, payload)
       }
   }
 }

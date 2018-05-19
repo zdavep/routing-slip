@@ -5,7 +5,7 @@ import zdavep.Rule
 import zdavep.test.domain.Car
 
 final class PaintCarRule(color: String) extends Rule[Car] {
-  override def shouldProcess(car: Car): Boolean = car.color != color
+  override def shouldProcess(car: Car): Future[Boolean] = Future.successful(car.color != color)
   def process(car: Car): Future[Car] = Future.successful(car.copy(color = color))
 }
 

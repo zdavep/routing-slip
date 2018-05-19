@@ -5,8 +5,8 @@ import zdavep.test.domain.Car
 import scala.concurrent.Future
 
 final class NavigationRule extends Rule[Car] {
-  override def shouldProcess(car: Car): Boolean = !car.navigation
-  def process(car: Car): Future[Car] = Future.successful(car.copy(navigation = true))
+  def process(car: Car): Future[Car] =
+    Future.successful(car.copy(navigation = true))
 }
 
 object NavigationRule {
